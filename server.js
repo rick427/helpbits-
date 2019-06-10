@@ -1,7 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
-const postRoutes = require('./routes/post');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator')
 const dotenv = require('dotenv');
@@ -23,8 +22,12 @@ app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(expressValidator());
 
-//middleware::routes
+//middleware :: routes
+const postRoutes = require('./routes/post');
+const authRoutes = require('./routes/auth');
+
 app.use('/', postRoutes);
+app.use('/', authRoutes);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server connected on port ${port}`));

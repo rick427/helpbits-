@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const uuid = require('uuid/v4');
 const crypto = require('crypto');
 
-const UserSchema = new mongoose.Schema = ({
+const UserSchema = new mongoose.Schema({
     name: {
         type: String,
         trim: true,
@@ -13,7 +13,7 @@ const UserSchema = new mongoose.Schema = ({
         trim: true,
         required: true
     },
-    password: {
+    hash_password: {
         type: String,
         required: true
     },
@@ -26,20 +26,23 @@ const UserSchema = new mongoose.Schema = ({
 });
 
 //virtual field
-userSchema.virtual('password')
+
+UserSchema.virtual('password')
 .set(function(password){
     //create temp variable 
     this._password = password
+
     // generate a tiemstamp
     this.salt = uuid()
+
     //encrypt password
-    this.password = this.encryptPassword(password);
+    this.hash_password = this.encryptPassword(password);
 })
 .get(function(){
     return this._password
 })
 
-userSchema.methods = {
+UserSchema.methods = {
     encryptPassword: function(password) {
         if(!password) return "";
 
