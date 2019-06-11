@@ -1,10 +1,9 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
-const cookieParser = require('cookie-parser');
 require('dotenv').config()
 
 
-//Register Controller
+//Register
 exports.signup = async (req, res) => {
   const userExists = await User.findOne({email: req.body.email});
 
@@ -18,9 +17,9 @@ exports.signup = async (req, res) => {
   res.status(200).json({response: "SignUp Successful!... Please login "});
 }
 
-//Login Controller
-exports.signin = async (req, res) => {
 
+//Login 
+exports.signin = async (req, res) => {
   //find the user based on email
   const { email, password} = req.body;
   await User.findOne({email}, (err, user) => {
@@ -37,7 +36,7 @@ exports.signin = async (req, res) => {
        //generate a token
        const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET);
 
-       //persist the token in cookie with expiry date
+       //persist the token with 't' in cookies with expiry date
        res.cookie("t", token, {expire: new Date() + 9999})
 
        //return response with user and token to the frontend client
@@ -47,6 +46,12 @@ exports.signin = async (req, res) => {
     catch(err){
        console.log(err.message);
     }
-  })
+  });
 
+
+  //Signout
+  exports.logout = (req, res) => {
+    res.clearCookie('t');
+    return res.json({message: "SignOut Successful!..."});
+  };
 }

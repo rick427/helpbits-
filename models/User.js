@@ -25,8 +25,7 @@ const UserSchema = new mongoose.Schema({
     updated: Date
 });
 
-//virtual field
-
+//virtual fields
 UserSchema.virtual('password')
 .set(function(password){
     //create temp variable 
@@ -41,6 +40,7 @@ UserSchema.virtual('password')
 .get(function(){
     return this._password
 })
+
 
 UserSchema.methods = {
     authenticate: function(plainText) {
