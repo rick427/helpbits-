@@ -23,6 +23,11 @@ app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(expressValidator());
 app.use(cookieParser());
+app.use(function(err, req, res, next) {
+    if(err.name === 'UnauthorizedError'){
+        res.status(401).json({error: "Unauthorized.."});
+    }
+});
 
 //middleware :: routes
 const postRoutes = require('./routes/post');
