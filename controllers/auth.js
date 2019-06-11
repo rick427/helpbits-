@@ -46,12 +46,12 @@ exports.signin = async (req, res) => {
     catch(err){
        console.log(err.message);
     }
-  });
-
-
-  //Signout
-  exports.logout = (req, res) => {
-    res.clearCookie('t');
-    return res.json({message: "SignOut Successful!..."});
-  };
+  })
 }
+
+
+//logout
+exports.logout = (req, res) => {
+  res.clearCookie('t');
+  return res.json({message: "SignOut Successful!..."});
+};
