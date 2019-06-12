@@ -1,0 +1,12 @@
+{
+    "/": "Get all docs",
+    "/login": "login",
+    "/register": "Register a user",
+    "/logout": "Logout a user",
+    "/users": "Get all users",
+    "/user/:userId": "Get a user/update/delete",
+    "/posts": "Get all posts",
+    "/post/new/:userId": "Create a post",
+    "/post/by/:userId": "get posts by user",
+    "/post/:postId": "update/delete a post"
+}

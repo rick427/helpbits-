@@ -13,7 +13,8 @@ const {createPostValidator} = require('../validators');
 const {userById} = require('../controllers/user');
 const router = express.Router();
 
-router.get('/post/all', getPosts);
+//routes
+router.get('/posts', getPosts);
 router.post('/post/new/:userId', protectedRoute, createPosts, createPostValidator);
 router.get("/post/by/:userId", protectedRoute, postsByUser);
 router.delete("/post/:postId", protectedRoute, isAuthorized, deletePost );

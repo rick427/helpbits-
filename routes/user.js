@@ -3,7 +3,7 @@ const {userById, allUsers, getUser, updateUser, deleteUser} = require('../contro
 const {protectedRoute} = require('../controllers/auth');
 const router = express.Router();
 
-router.get('/user/all', allUsers);
+router.get('/users', allUsers);
 router.get('/user/:userId', protectedRoute, getUser);
 router.put('/user/:userId', protectedRoute, updateUser);
 router.delete('/user/:userId', protectedRoute, deleteUser);
