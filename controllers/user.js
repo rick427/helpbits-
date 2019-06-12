@@ -61,6 +61,6 @@ exports.deleteUser = (req, res) => {
     }
     user.hash_password = undefined;
     user.salt = undefined;
-    res.json({user});
+    res.json({msg: "User " + user.name + " has been deleted"});
   })
 }
