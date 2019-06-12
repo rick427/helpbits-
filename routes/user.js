@@ -4,12 +4,12 @@ const {protectedRoute} = require('../controllers/auth');
 const router = express.Router();
 
 router.get('/user/all', allUsers);
-router.get('/user/:id', protectedRoute, getUser);
-router.put('/user/:id', protectedRoute, updateUser);
-router.delete('/user/:id', protectedRoute, deleteUser);
+router.get('/user/:userId', protectedRoute, getUser);
+router.put('/user/:userId', protectedRoute, updateUser);
+router.delete('/user/:userId', protectedRoute, deleteUser);
 
 //any route containing userid, will execute userbyID
-router.param("id", userById);
+router.param("userId", userById);
 
 module.exports = router;
 
