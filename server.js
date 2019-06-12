@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const expressValidator = require('express-validator');
 const fs = require("fs");
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
@@ -23,6 +24,7 @@ app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(expressValidator());
 app.use(cookieParser());
+app.use(cors());
 
 
 //middleware :: routes
