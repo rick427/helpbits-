@@ -51,3 +51,16 @@ exports.updateUser = (req, res) => {
       res.json({user});
     });
 }
+
+
+exports.deleteUser = (req, res) => {
+  let user = req.profile;
+  user.remove((err , user) => {
+    if(err){
+      return res.status(400).json({err})
+    }
+    user.hash_password = undefined;
+    user.salt = undefined;
+    res.json({user});
+  })
+}
