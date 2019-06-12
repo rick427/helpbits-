@@ -59,5 +59,8 @@ exports.logout = (req, res) => {
 
 
 exports.protectedRoute = expressJwt({
-   secret: process.env.JWT_SECRET  
+   // if the token is valid, append the users id
+   secret: process.env.JWT_SECRET,
+   userProperty: "auth"
 })
+

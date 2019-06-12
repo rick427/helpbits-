@@ -23,18 +23,21 @@ app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(expressValidator());
 app.use(cookieParser());
-app.use(function(err, req, res, next) {
-    if(err.name === 'UnauthorizedError'){
-        res.status(401).json({error: "Unauthorized.."});
-    }
-});
+
 
 //middleware :: routes
 const postRoutes = require('./routes/post');
 const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user')
 
 app.use('/', postRoutes);
 app.use('/', authRoutes);
+app.use('/', userRoutes);
+app.use((err, req, res, next) => {
+    if (err.name === 'UnauthorizedError') {
+      res.status(401).send('Unauthorized...No token found');
+    }
+  });
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server connected on port ${port}`));
