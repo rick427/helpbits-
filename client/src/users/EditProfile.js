@@ -66,7 +66,7 @@ class EditProfile extends Component {
         const {name, value, files} = e.target;
         const vals = name === 'photo' ? files[0] : value
         const  filesize = name==='photo' ? files[0].size : 0
-        this.userData.set(name, value)
+        this.userData.set(name, vals)
         this.setState({[name]: vals, filesize});
     }
 
