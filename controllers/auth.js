@@ -26,7 +26,7 @@ exports.signin = async (req, res) => {
   await User.findOne({email}, (err, user) => {
     try{
        if(err || !user){
-         return res.status(401).json({error: "User with that email doesnt exists. SignIn.."})
+         return res.status(401).json({error: "User with that email does not exist. Please SignUp.."})
        }
 
        //create authenticate method in model and use here

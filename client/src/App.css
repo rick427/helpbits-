@@ -1,0 +1,41 @@
+
+.form{
+    border: 2px solid #bbb;
+    max-width: 50%;
+    border-radius: 5px;
+    box-shadow: 10px 10px 10px #ddd;
+    margin-top: 5rem;
+    background-color: #eee;
+}
+
+.form input{
+    font-size: 20px;
+    font-family: cursive
+}
+
+.form h1 {
+    color: teal;
+    font-family: 'Lucinda sans';
+    font-weight: 300;
+}
+
+.loginForm{
+    border: 2px solid #bbb;
+    max-width: 40%;
+    border-radius: 5px;
+    box-shadow: 10px 10px 10px #ddd;
+    margin-top: 5rem;
+    background-color: #eee;
+}
+
+.loginForm input{
+    font-size: 20px;
+    font-family: cursive
+}
+
+.loginForm h1 {
+    color: teal;
+    font-family: 'Lucinda sans';
+    font-weight: 300;
+}
+
