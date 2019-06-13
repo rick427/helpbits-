@@ -11,7 +11,7 @@ class Profile extends Component {
     componentDidMount(){
         const id = this.props.match.params.id;
         this.initialize(id);
-        console.log("default props",this.props);
+        //console.log("default props",this.props);
     }
 
     // initialize the id of the user to make a request to the backend api
@@ -36,7 +36,7 @@ class Profile extends Component {
         if(redirect){
             return <Redirect to="/login"/>
         }
-        console.log("after setstate", this.state.user)
+       // console.log("after setstate", this.state.user)
         return (
             <div className="container">
                 <div className="row">
