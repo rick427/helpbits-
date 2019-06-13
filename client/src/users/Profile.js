@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {isAuthenticated, profileRequest} from '../context';
 import {Link, Redirect} from 'react-router-dom';
 import defaultImage from '../userImg2.jpg';
+import DeleteUser from './DeleteUser';
 
 class Profile extends Component {
     state = {
@@ -12,7 +13,11 @@ class Profile extends Component {
     componentDidMount(){
         const id = this.props.match.params.id;
         this.initialize(id);
-        //console.log("default props",this.props);
+    }
+
+    componentWillReceiveProps(props){
+        const id = props.match.params.id;
+        this.initialize(id); 
     }
 
     // initialize the id of the user to make a request to the backend api
@@ -62,7 +67,7 @@ class Profile extends Component {
                                 <Link to={`user/edit/${this.state.user._id}`} className="btn btn-raised btn-success mr-5">
                                     Edit Profile
                                 </Link>
-                                <button className="btn btn-raised btn-danger">Delete Profile</button>
+                                <DeleteUser id={user._id} />
                             </div>
                         )}
                     </div>

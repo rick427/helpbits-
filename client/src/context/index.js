@@ -85,3 +85,16 @@ export const usersList= () => {
     })
     .then(res => {return res.json()})
 }
+
+
+export const removeAccount = (id, token) => {
+    return fetch(`${process.env.REACT_APP_API_URL}/user/${id}`, {
+        methods: "DELETE",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        }
+    })
+    .then(res => {return res.json()})
+}

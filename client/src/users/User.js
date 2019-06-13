@@ -21,12 +21,12 @@ class Users extends Component {
     render() {
         const {users} = this.state;
         return (
-            <div className="container">
-                <h2 className="mt-3 mb-3">Users</h2>
+            <div className="container-fluid">
+                <h2 className="text-muted mt-3 mb-3">Users</h2>
 
                 <div className="row">
                    {users.map((user,index) => (
-                       <div className="card col-md-3 mx-1 my-1" key={index}>
+                       <div className="card col-md-3 mx-4 my-3" key={index}>
                            <img 
                                src={defaultImage} 
                                alt="card" 
