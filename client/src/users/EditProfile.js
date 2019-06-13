@@ -9,12 +9,37 @@ class EditProfile extends Component {
       name: '',
       email: '',
       password: '',
-      redirect: false
+      redirect: false,
+      error: '',
+      filesize: 0,
+      loading: false
     }
 
     componentDidMount(){
+        this.userData = new FormData()
         const id = this.props.match.params.id;
         this.initialize(id);
+    }
+
+    isValid = () => {
+        const {name, email, password} = this.state;
+        if (name.length === 0) {
+            this.setState({ error: "Name is required"});
+            return false;
+        }
+        if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+            this.setState({
+                error: "A valid Email is required",
+            });
+            return false;
+        }
+        if (password.length >= 1 && password.length <= 5) {
+            this.setState({
+                error: "Password must be at least 6 characters long",
+            });
+            return false;
+        }
+        return true;
     }
 
     initialize = (id) => {
@@ -37,31 +62,31 @@ class EditProfile extends Component {
     }
 
     handleChange = e => {
-        this.setState({
-            [e.target.name]: e.target.value, 
-            error: ''
-        });
+        //this.setState({error: ""})
+        const {name, value, files} = e.target;
+        const vals = name === 'photo' ? files[0] : value
+        const  filesize = name==='photo' ? files[0].size : 0
+        this.userData.set(name, value)
+        this.setState({[name]: vals, filesize});
     }
 
     handleSubmit = e => {
         e.preventDefault();
-        const {name, email, password} = this.state;
-        const user = {
-            name,
-            email,
-            password: password || undefined
-        }
-        const id = this.props.match.params.id;
-        const token = isAuthenticated().token;
+        this.setState({loading: true});
 
-        updateProfile(id, token, user).then(res => {
-             if(res.error){
-                 this.setState({error: res.error})
-             }
-             else this.setState({
-                 redirect: true
-             })
-         })
+        if(this.isValid()){
+            const id = this.props.match.params.id;
+            const token = isAuthenticated().token;
+
+            updateProfile(id, token, this.userData).then(res => {
+                if(res.error){
+                    this.setState({redirect: true})
+                }
+                else this.setState({
+                    redirect: true
+                })
+            })
+        }
     };
 
     registerForm = () => {
@@ -71,6 +96,16 @@ class EditProfile extends Component {
         }
         return (
             <form autoComplete="off">
+                  <div className="form-group">
+                      <label className="text-muted bmd-label-floating">Profile Photo</label>
+                      <input 
+                         className="form-control" 
+                         type="file"
+                         accept="image/*"
+                         name="photo"
+                         onChange={this.handleChange} 
+                        />
+                  </div>
                   <div className="form-group">
                       <label className="text-muted bmd-label-floating">Name</label>
                       <input 
@@ -109,9 +144,25 @@ class EditProfile extends Component {
     }
 
     render() {
+        const {id,redirect,error,loading} = this.state;
+        if(redirect){
+            return <Redirect to={`/user/${id}`} />
+        }
         return (
             <div className="container form">
                 <h2 className="mt-5 mb-5 text-muted text-center">Edit Profile</h2>
+                
+                {loading ? 
+                (
+                 <div style={{textAlign:'center'}}>
+                      <i className="fas fa-cog fa-spin fa-3x" style={{color: 'teal'}}/>
+                 </div>
+                ) : ("")
+               }
+
+                <div style={{display: error ? '': 'none'}} className="alert alert-danger">
+                    {error}
+                </div>
                 {this.registerForm()}
             </div>
         )

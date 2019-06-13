@@ -102,14 +102,14 @@ export const removeProfile = (id, token) => {
 
 
 export const updateProfile = (id, token, user) => {
+    console.log("user data updated", user)
     return fetch(`${process.env.REACT_APP_API_URL}/user/${id}`, {
         method: "PUT",
         headers: {
             Accept: "application/json",
-            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify(user)
+        body: user
     })
     .then(res => {return res.json()})
     .catch(err => console.log(err));

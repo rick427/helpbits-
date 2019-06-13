@@ -7,6 +7,7 @@ import Menu from './component/Menu';
 import Profile from './users/Profile';
 import Users from './users/User';
 import EditProfile from './users/EditProfile';
+import PrivateRoute from './component/PrivateRoute';
 
 const Router = () => {
     return (
@@ -16,9 +17,9 @@ const Router = () => {
             <Route exact path="/" component={Home} />
             <Route exact path="/register" component={Signup}/>
             <Route exact path="/login" component={SignIn}/>
-            <Route exact path="/user/:id" component={Profile}/>
+            <PrivateRoute exact path="/user/:id" component={Profile}/>
             <Route exact path="/users" component={Users}/>
-            <Route exact path="/user/edit/:id" component={EditProfile}/>
+            <PrivateRoute exact path="/user/edit/:id" component={EditProfile}/>
         </Switch>
         </>
     )
