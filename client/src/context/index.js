@@ -1,6 +1,6 @@
 //Login Method
 export const login = user => {
-    return fetch("http://localhost:5000/login", {
+    return fetch(`${process.env.REACT_APP_API_URL}/login`, {
         method: "POST", 
         headers: {
             Accept: "application/json",
@@ -17,7 +17,7 @@ export const login = user => {
 
 //Register Method
 export const register = user => {
-    return fetch("http://localhost:5000/register", {
+    return fetch(`${process.env.REACT_APP_API_URL}/register`, {
         method: "POST", 
         headers: {
             Accept: "application/json",
@@ -45,7 +45,7 @@ export const logout = (next) => {
         localStorage.removeItem("token");
         next();
 
-        return fetch("http://localhost:5000/logout", {
+        return fetch(`${process.env.REACT_APP_API_URL}/logout`, {
             method: "GET"
         })
         .then(res => {
@@ -62,6 +62,17 @@ export const isAuthenticated = () => {
     if(localStorage.getItem("token")){
         return JSON.parse(localStorage.getItem("token"));
     }
-    else return false;
-  
+    else return false; 
+}
+
+export const profileRequest= (id, token) => {
+    return fetch(`${process.env.REACT_APP_API_URL}/user/${id}`, {
+        methods: "GET",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        }
+    })
+    .then(res => {return res.json()})
 }

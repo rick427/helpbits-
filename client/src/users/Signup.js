@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {register} from '../auth';
+import {register} from '../context';
 import '../App.css';
 
 class Signup extends Component {
