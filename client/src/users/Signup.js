@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {register} from '../context';
+import {Link} from 'react-router-dom';
 import '../App.css';
 
 class Signup extends Component {
@@ -99,7 +100,7 @@ class Signup extends Component {
 
               <div className="alert alert-success alert-dismissible fade show" role="alert" style={{display: access ? '' : "none"}}>
                  <div style={{fontFamily: 'cursive'}}>
-                    Account successfully created... Please Sign in.
+                    Account successfully created... Please <Link to="/login">Sign in.</Link>
                  </div>
               </div>
 

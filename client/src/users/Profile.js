@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {isAuthenticated, profileRequest} from '../context';
 import {Link, Redirect} from 'react-router-dom';
+import defaultImage from '../userImg2.jpg';
 
 class Profile extends Component {
     state = {
@@ -41,15 +42,23 @@ class Profile extends Component {
             <div className="container">
                 <div className="row">
                     <div className="col-md-6">
-                        <h2 className="mt-5 mb-5">Profile</h2>
-                        <p>{user.name}</p>
-                        <p>{user.email}</p>
-                        <p>{`Joined ${new Date(this.state.user.created).toDateString()}`}</p>
+                        <h2 className="mt-5 mb-5 text-muted">Profile</h2>
+                        <img 
+                            src={defaultImage} 
+                            alt="card" 
+                            className="card-img-top" 
+                            style={{width: "62%"}}
+                        />
                     </div>
 
-                    <div className="col-md-6">
+                    <div className="col-md-6 mt-3">
+                        <div className="lead mt-5">
+                            <p>{this.state.user.name}</p>
+                            <p>{this.state.user.email}</p>
+                            <p>{`Joined ${new Date(this.state.user.created).toDateString()}`}</p>
+                        </div>
                         {user && user._id === this.state.user._id &&(
-                            <div className="d-inline-block mt-5">
+                            <div className="d-inline-block">
                                 <Link to={`user/edit/${this.state.user._id}`} className="btn btn-raised btn-success mr-5">
                                     Edit Profile
                                 </Link>
