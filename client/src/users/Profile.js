@@ -38,6 +38,7 @@ class Profile extends Component {
 
     render() {
         const {user} = isAuthenticated();
+        
         const redirect = this.state.redirect;
         if(redirect){
             return <Redirect to="/login"/>
@@ -67,7 +68,7 @@ class Profile extends Component {
                                 <Link to={`user/edit/${this.state.user._id}`} className="btn btn-raised btn-success mr-5">
                                     Edit Profile
                                 </Link>
-                                <DeleteUser id={user._id} />
+                                <DeleteUser id={this.state.user._id} />
                             </div>
                         )}
                     </div>

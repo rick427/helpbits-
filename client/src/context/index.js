@@ -87,7 +87,7 @@ export const usersList= () => {
 }
 
 
-export const removeAccount = (id, token) => {
+export const removeProfile = (id, token) => {
     return fetch(`${process.env.REACT_APP_API_URL}/user/${id}`, {
         methods: "DELETE",
         headers: {

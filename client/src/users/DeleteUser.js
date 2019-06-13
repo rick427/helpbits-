@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Redirect} from 'react-router-dom';
-import {isAuthenticated, removeAccount, logout} from '../context';
+import {isAuthenticated, removeProfile, logout} from '../context';
 
 
 class DeleteUser extends Component {
@@ -11,7 +11,8 @@ class DeleteUser extends Component {
     deleteAccount = () => {
       const token = isAuthenticated().token;
       const id = this.props.id;
-      removeAccount(id, token)
+
+      removeProfile(id, token)
        .then(data => {
            if(data.error) console.log(data.error)
            else{
@@ -19,6 +20,7 @@ class DeleteUser extends Component {
                this.setState({redirect: true});
            }
        })
+       .catch(err => console.log(err));
     }
 
     handleDelete = () => {
