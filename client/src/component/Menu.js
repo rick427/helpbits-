@@ -13,12 +13,19 @@ const isActive = (history, path) => {
 
 
 const Menu = ({history}) => {
+    const {user} = isAuthenticated();
     return (
         <div>
             <ul className="nav nav-tabs bg-secondary">
                 <li className="nav-item">
                    <Link className="nav-link" to="/" style={isActive(history, "/")}>
                        Home
+                    </Link>
+                </li>
+
+                <li className="nav-item">
+                   <Link className="nav-link" to="/users" style={isActive(history, "/")}>
+                       Users
                     </Link>
                 </li>
           
@@ -41,6 +48,15 @@ const Menu = ({history}) => {
                 {isAuthenticated() && (
                     <>
                     <li className="nav-item">
+                        <Link 
+                           className="nav-link" 
+                           style={(isActive(history, `/user/${user._id}`))}
+                           to={`/user/${user._id}`}
+                        >
+                            {`${user.name}'s profile`}
+                        </Link>
+                    </li>
+                    <li className="nav-item">
                         <div 
                             className="nav-link" 
                             onClick={() => logout(() => history.push('/'))} 
@@ -49,16 +65,6 @@ const Menu = ({history}) => {
                         Logout
                         </div>    
                     </li>
-
-                    <li className="nav-item">
-                        <Link 
-                           className="nav-link" 
-                           style={Userstyles}
-                           to={`/user/${isAuthenticated().user._id}`}
-                        >
-                            {`${isAuthenticated().user.name}'s profile`}
-                        </Link>
-                    </li>
                     </>
                 )}
             </ul>
@@ -66,12 +72,8 @@ const Menu = ({history}) => {
     );
 }
 
-const Userstyles = {
-    color: '#bbbbbb', 
-    letterSpacing:"2px", 
-    textTransform:"capitalize", 
-    cursor: "pointer",
-    fontWeight: "400"
-}
+
+
+
 
 export default withRouter(Menu);

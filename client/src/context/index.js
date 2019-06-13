@@ -65,6 +65,7 @@ export const isAuthenticated = () => {
     else return false; 
 }
 
+
 export const profileRequest= (id, token) => {
     return fetch(`${process.env.REACT_APP_API_URL}/user/${id}`, {
         methods: "GET",
@@ -73,6 +74,14 @@ export const profileRequest= (id, token) => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`
         }
+    })
+    .then(res => {return res.json()})
+}
+
+
+export const usersList= () => {
+    return fetch(`${process.env.REACT_APP_API_URL}/users/`, {
+        methods: "GET",
     })
     .then(res => {return res.json()})
 }

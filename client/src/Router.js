@@ -5,6 +5,7 @@ import Signup from './users/Signup';
 import SignIn from './users/SignIn';
 import Menu from './component/Menu';
 import Profile from './users/Profile';
+import Users from './users/User';
 
 const Router = () => {
     return (
@@ -15,6 +16,7 @@ const Router = () => {
             <Route exact path="/register" component={Signup}/>
             <Route exact path="/login" component={SignIn}/>
             <Route exact path="/user/:id" component={Profile}/>
+            <Route exact path="/users" component={Users}/>
         </Switch>
         </>
     )
