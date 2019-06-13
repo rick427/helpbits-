@@ -99,3 +99,18 @@ export const removeProfile = (id, token) => {
     .then(res => {return res.json()})
     .catch(err => console.log(err));
 };
+
+
+export const updateProfile = (id, token, user) => {
+    return fetch(`${process.env.REACT_APP_API_URL}/user/${id}`, {
+        method: "PUT",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(user)
+    })
+    .then(res => {return res.json()})
+    .catch(err => console.log(err));
+};

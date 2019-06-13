@@ -90,7 +90,7 @@ class Signup extends Component {
         const {error, access} = this.state;
         return (
             <div className="container form">
-              <h1 className="text-center my-3">Register</h1>
+              <h1 className="text-center my-3 text-center">Register</h1>
 
               <div className="alert alert-danger alert-dismissible fade show" role="alert" style={{display: error ? '' : "none"}}>
                  <div style={{fontFamily:'cursive'}}>

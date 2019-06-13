@@ -84,7 +84,7 @@ class SignIn extends Component {
         }
         return (
             <div className="container loginForm">
-              <h1 className="text-center my-3">Login</h1>
+              <h1 className="text-center my-3 text-center">Login</h1>
 
               <div className="alert alert-danger alert-dismissible fade show" role="alert" style={{display: error ? '' : "none"}}>
                  <div style={{fontFamily:'cursive'}}>
