@@ -65,7 +65,7 @@ class Profile extends Component {
                         </div>
                         {user && user._id === this.state.user._id &&(
                             <div className="d-inline-block">
-                                <Link to={`user/edit/${this.state.user._id}`} className="btn btn-raised btn-success mr-5">
+                                <Link to={`/user/edit/${this.state.user._id}`} className="btn btn-raised btn-success mr-5">
                                     Edit Profile
                                 </Link>
                                 <DeleteUser id={this.state.user._id} />

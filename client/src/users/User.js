@@ -26,7 +26,7 @@ class Users extends Component {
 
                 <div className="row">
                    {users.map((user,index) => (
-                       <div className="card col-md-3 mx-4 my-3" key={index}>
+                       <div className="card col-md-3 ml-5 my-3" key={index}>
                            <img 
                                src={defaultImage} 
                                alt="card" 

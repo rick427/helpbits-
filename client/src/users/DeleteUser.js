@@ -11,7 +11,7 @@ class DeleteUser extends Component {
     deleteAccount = () => {
       const token = isAuthenticated().token;
       const id = this.props.id;
-
+      
       removeProfile(id, token)
        .then(data => {
            if(data.error) console.log(data.error)
@@ -20,7 +20,6 @@ class DeleteUser extends Component {
                this.setState({redirect: true});
            }
        })
-       .catch(err => console.log(err));
     }
 
     handleDelete = () => {

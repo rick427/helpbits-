@@ -89,7 +89,7 @@ export const usersList= () => {
 
 export const removeProfile = (id, token) => {
     return fetch(`${process.env.REACT_APP_API_URL}/user/${id}`, {
-        methods: "DELETE",
+        method: "DELETE",
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -97,4 +97,5 @@ export const removeProfile = (id, token) => {
         }
     })
     .then(res => {return res.json()})
-}
+    .catch(err => console.log(err));
+};
