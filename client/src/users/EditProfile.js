@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {isAuthenticated, profileRequest, updateProfile} from '../context';
+import {isAuthenticated, profileRequest, updateUser, updateProfile} from '../context';
 import {Redirect} from 'react-router-dom';
 import defaultImage from '../userImg.png';
 import '../App.css';
@@ -13,7 +13,8 @@ class EditProfile extends Component {
       redirect: false,
       error: '',
       filesize: 0,
-      loading: false
+      loading: false,
+      about: ''
     }
 
     componentDidMount(){
@@ -25,22 +26,24 @@ class EditProfile extends Component {
     isValid = () => {
         const {name, email, password, filesize} = this.state;
         if (filesize > 100000) {
-            this.setState({ error: "File size should be less than 100kb"});
+            this.setState({ error: "File size should be less than 100kb", loading: false});
             return false;
         }
         if (name.length === 0) {
-            this.setState({ error: "Name is required"});
+            this.setState({ error: "Name is required", loading: false});
             return false;
         }
         if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
             this.setState({
-                error: "A valid Email is required",
+                error: "A valid Email is required", 
+                loading: false
             });
             return false;
         }
         if (password.length >= 1 && password.length <= 5) {
             this.setState({
                 error: "Password must be at least 6 characters long",
+                loading: false
             });
             return false;
         }
@@ -59,6 +62,7 @@ class EditProfile extends Component {
                     id: data._id,
                     name: data.name,
                     email: data.email,
+                    about: data.about,
                     error: ''
                 })
             }
@@ -87,9 +91,13 @@ class EditProfile extends Component {
                 if(res.error){
                     this.setState({redirect: true})
                 }
-                else this.setState({
-                    redirect: true
-                })
+                else{
+                    updateUser(res, () => {
+                          this.setState({
+                            redirect: true
+                        })
+                    })
+                }
             })
         }
     };
@@ -132,6 +140,16 @@ class EditProfile extends Component {
                         />
                   </div>
                   <div className="form-group">
+                      <label className="text-muted bmd-label-floating">About</label>
+                      <textarea 
+                         className="form-control" 
+                         type="text"
+                         name="about" 
+                         value={this.state.about}
+                         onChange={this.handleChange} 
+                        />
+                  </div>
+                  <div className="form-group">
                       <label className="text-muted bmd-label-floating">Password</label>
                       <input 
                          className="form-control" 
@@ -153,7 +171,7 @@ class EditProfile extends Component {
         if(redirect){
             return <Redirect to={`/user/${id}`} />
         }
-        const photoUrl = id ? `${process.env.REACT_APP_API_URL}/user/photo/${id}` : defaultImage
+        const photoUrl = id ? `${process.env.REACT_APP_API_URL}/user/photo/${id}?${new Date().getTime()}` : defaultImage
         return (
             <div className="container form">
                 <h2 className="mt-5 mb-5 text-muted text-center">Edit Profile</h2>
@@ -170,7 +188,13 @@ class EditProfile extends Component {
                     {error}
                 </div>
 
-                <img src={photoUrl} style={{width: '400px', height: '400px'}} alt={this.state.name}/>
+                <img 
+                     src={photoUrl} 
+                     className="img-thumbnail" 
+                     style={{width: 'auto', height: '300px'}} 
+                     onError={i => (i.target.src = `${defaultImage}`)}
+                     alt={this.state.name}
+                />
 
                 {this.registerForm()}
             </div>

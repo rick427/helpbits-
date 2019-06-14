@@ -44,16 +44,18 @@ class Profile extends Component {
             return <Redirect to="/login"/>
         }
        // console.log("after setstate", this.state.user)
+       const photoUrl = this.state.user._id ? 
+          `${process.env.REACT_APP_API_URL}/user/photo/${this.state.user._id}?${new Date().getTime()}` : defaultImage
         return (
             <div className="container">
                 <div className="row">
                     <div className="col-md-6">
                         <h2 className="mt-5 mb-5 text-muted">Profile</h2>
                         <img 
-                            src={defaultImage} 
-                            alt="card" 
-                            className="card-img-top" 
-                            style={{width: "62%"}}
+                            src={photoUrl} 
+                            className="img-thumbnail" 
+                            style={{width: 'auto', height: '300px'}} 
+                            alt={this.state.name}
                         />
                     </div>
 
@@ -71,6 +73,12 @@ class Profile extends Component {
                                 <DeleteUser id={this.state.user._id} />
                             </div>
                         )}
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col md-12 mt-5 mb-5">
+                        <hr/>
+                        <p className="lead">{this.state.user.about}</p>
                     </div>
                 </div>
             </div>

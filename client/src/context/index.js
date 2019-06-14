@@ -114,3 +114,14 @@ export const updateProfile = (id, token, user) => {
     .then(res => {return res.json()})
     .catch(err => console.log(err));
 };
+
+export const updateUser = (user, next) => {
+  if(typeof window !== 'undefined'){
+      if(localStorage.getItem('token')){
+          let auth = JSON.parse(localStorage.getItem('token'))
+          auth.user = user;
+          localStorage.setItem('token', JSON.stringify(auth));
+          next();
+      }
+  }
+}
