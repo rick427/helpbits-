@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {isAuthenticated, profileRequest, updateProfile} from '../context';
 import {Redirect} from 'react-router-dom';
+import defaultImage from '../userImg.png';
 import '../App.css';
 
 class EditProfile extends Component {
@@ -22,7 +23,11 @@ class EditProfile extends Component {
     }
 
     isValid = () => {
-        const {name, email, password} = this.state;
+        const {name, email, password, filesize} = this.state;
+        if (filesize > 100000) {
+            this.setState({ error: "File size should be less than 100kb"});
+            return false;
+        }
         if (name.length === 0) {
             this.setState({ error: "Name is required"});
             return false;
@@ -62,7 +67,7 @@ class EditProfile extends Component {
     }
 
     handleChange = e => {
-        //this.setState({error: ""})
+        this.setState({error: ""})
         const {name, value, files} = e.target;
         const vals = name === 'photo' ? files[0] : value
         const  filesize = name==='photo' ? files[0].size : 0
@@ -148,6 +153,7 @@ class EditProfile extends Component {
         if(redirect){
             return <Redirect to={`/user/${id}`} />
         }
+        const photoUrl = id ? `${process.env.REACT_APP_API_URL}/user/photo/${id}` : defaultImage
         return (
             <div className="container form">
                 <h2 className="mt-5 mb-5 text-muted text-center">Edit Profile</h2>
@@ -163,6 +169,9 @@ class EditProfile extends Component {
                 <div style={{display: error ? '': 'none'}} className="alert alert-danger">
                     {error}
                 </div>
+
+                <img src={photoUrl} style={{width: '400px', height: '400px'}} alt={this.state.name}/>
+
                 {this.registerForm()}
             </div>
         )
