@@ -7,12 +7,15 @@ const {
     updateUser, 
     deleteUser,
     addFollowing,
-    addFollower
+    addFollower,
+    removeFollowing,
+    removeFollower
 } = require('../controllers/user');
 const {protectedRoute} = require('../controllers/auth');
 const router = express.Router();
 
-router.put('/user/follow', protectedRoute, addFollowing, addFollower)
+router.put('/user/follow', protectedRoute, addFollowing, addFollower);
+router.put('/user/unfollow', protectedRoute, removeFollowing, removeFollower);
 router.get('/users', allUsers);
 router.get('/user/:userId', protectedRoute, getUser);
 router.put('/user/:userId', protectedRoute, updateUser);
